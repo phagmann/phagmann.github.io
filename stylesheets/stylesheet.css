@@ -16,6 +16,13 @@ body {
 
 }
 
+.grey{
+
+  border-top: 5px double grey;
+  width: 750px;
+
+}
+
   .about-container {
   background: url(../images/mybackround.jpeg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -34,7 +41,7 @@ h3 {
 
 .yellow {
   border-top: 5px double #F5A623;
-  width: 250px;
+  width: 500px;
 }
 
 .box {
