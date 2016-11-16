@@ -2,7 +2,10 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet/normalize.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/prism.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i" rel="stylesheet">
 
     <link 
@@ -12,8 +15,8 @@
       media="screen" 
     />
 
-    <script type="text/javascript" src="prism.js"></script>
-    <script type="text/javascript" src="prism.ruby.js"></script>
+    <script type="text/javascript" src="javascripts/prism.js"></script>
+    <!-- <script type="text/javascript" src="prism.ruby.js"></script> -->
 
   </head>
 
@@ -36,29 +39,6 @@
     </div>
   </div>
 <img src="patrick_fb.png" class="me" height=300 width=300 />
-<h3>Code Snippets</h3>
-
-<hr class="yellow">
-
-<div class="box">
-
-  <h4>Hello World</h4>
-  <p>
-    Extremely simple code that prints out "hello,1,hello,2.....goodbye"
-  </p>
-</div>
-
-<div class="box">
-<pre><code class="language-ruby">n = 0
-while n &lt; 10
-  puts &quot;Hello, #{n}&quot;
-  n = n + 1
-end 
-puts &quot;Goodbye&quot;</code></pre>
-</div>
-
-<br class="clear" />
-
 
 <h3>Web Apps</h3>
 <hr class="yellow" />
@@ -78,6 +58,232 @@ puts &quot;Goodbye&quot;</code></pre>
     A Website where you can play connect four! Includes: a drop down feature, this AI is implemented with Alpha Beta Pruning, and declaring the winning move with a blue line!
   </p>
 </div>
+
+<br class="clear" />
+
+<h3>Code Snippets</h3>
+
+<hr class="yellow">
+
+<div class="box">
+
+  <h4>Tree Search With Alpha Beta Pruning</h4>
+  <p>
+    Creates a Tree structure which can specify depth and how many leaf nodes each parent node has. 
+  </p>
+</div>
+
+<div class="box" >
+<pre style = " width: 600px; height: 400px;"><code class="language-ruby">require 'pp'
+class Node
+attr_accessor :value, :next_node, :previous, :alpha, :beta, :pruned
+    def initialize( next_node = nil, previous= [], alpha = - 1.0/0 , beta = 1.0/0, pruned = 0  )
+        self.next_node = next_node
+        self.previous = previous
+        self.alpha = alpha
+        self.beta = beta
+        self.pruned = pruned
+    end
+
+end
+class Tree
+    attr_accessor :currentNode, :size
+    def initialize(currentNode=nil, size=0)
+      self.currentNode = currentNode
+      self.size = size
+    end
+
+    def PreviousNodeAt(index)
+        return self.currentNode.previous[index]
+    end
+
+    def PreviousSetLength
+        return self.currentNode.previous.length
+    end
+
+    def PreviousValues
+        set = []
+        (0..(this.currentNode.previous.length -1)).each do |i|
+            set &lt;&lt; self.PreviousNodeAt(i).value
+        end
+        return set
+    end
+
+    def Next 
+        self.currentNode = self.currentNode.next_node
+    end
+
+    def Value
+        return self.currentNode.value
+    end
+
+    def newadd(value)
+        node = Node.new
+        node.value = value
+        if self.currentNode == nil
+            pp &quot;shots!&quot;
+            self.currentNode = node
+            self.size += 1
+            return
+        end
+
+        node.next_node = self.currentNode
+        self.currentNode.previous.push(node)
+        self.size += 1
+        self.currentNode = node
+        self.currentNode.alpha = self.currentNode.next_node.alpha
+        self.currentNode.beta = self.currentNode.next_node.beta
+        return
+
+
+
+    end
+
+    def add(value)
+        node = Node.new
+        node.value = value
+        node.next_node = self.currentNode
+        self.currentNode.previous.push(node)
+        self.size += 1
+        return
+    end
+
+    def getDepth
+        start = self.currentNode
+        depth = 1
+        # wtf is wrong with next_node and previous they are not set as nil??
+        while start.next_node != nil
+            start = start.next_node
+            depth += 1
+        end
+        return depth
+    end
+
+
+    def ifPrune
+        if self.currentNode.alpha &gt;= self.currentNode.beta then return true else return false end
+    end
+
+    def getAlphaBeta(depth, index)
+        if depth % 2 == 0
+            if self.PreviousNodeAt(index).value &lt; self.currentNode.beta
+                self.currentNode.beta = self.PreviousNodeAt(index).value
+                self.currentNode.value = self.currentNode.beta
+            end
+
+        else
+            if self.PreviousNodeAt(index).value &gt; self.currentNode.alpha
+                self.currentNode.alpha = self.PreviousNodeAt(index).value
+                self.currentNode.value = self.currentNode.alpha
+            end
+
+        end
+
+    end
+
+    def moveAlphaBetaUp(depth)
+        if depth % 2 == 0
+            if self.currentNode.beta &gt; self.currentNode.next_node.alpha
+                self.currentNode.next_node.alpha = self.currentNode.beta
+                self.currentNode.next_node.value = self.currentNode.next_node.alpha
+            end
+
+        else
+            if self.currentNode.alpha &lt; self.currentNode.next_node.beta
+                self.currentNode.next_node.beta = self.currentNode.alpha
+                self.currentNode.next_node.value = self.currentNode.next_node.beta
+            end
+
+        end
+
+    end
+
+
+
+
+
+end
+
+
+# q = Tree.new
+# q.currentNode = Node.new
+# pp q.currentNode.next_node
+
+
+
+
+
+def AplhaBetaPruning(childern, depth)
+    q = Tree.new
+    q.newadd(nil)
+    countdown = childern
+    while countdown &gt; 0
+        
+        if q.PreviousSetLength &lt; childern - q.currentNode.pruned &amp;&amp; q.getDepth &lt; depth - 1 
+            if q.ifPrune
+                q.currentNode.pruned += 1
+                next
+            end
+
+            q.newadd(nil)
+            next
+
+        elsif q.getDepth &gt;= depth - 1
+            (0..childern-1).each do |z|
+                r = 1 + rand(100)
+                q.add(r)
+                if q.ifPrune
+                    q.getAlphaBeta(q.getDepth,z)
+                    break
+                end
+                q.getAlphaBeta(q.getDepth,z)
+
+            end
+            q.moveAlphaBetaUp (q.getDepth)
+            q.Next
+
+        else
+            
+            q.moveAlphaBetaUp (q.getDepth)
+            q.Next
+
+        end
+
+
+        if q.currentNode.next_node == nil
+            countdown -= 1
+            if countdown &lt;= 0
+                puts &quot;win&quot;
+                puts q.Value
+                return q.size
+            end
+            q.newadd(nil)
+        end
+
+
+    end
+
+return 
+
+
+
+
+
+end
+
+
+pp AplhaBetaPruning(4, 14)
+
+
+
+
+</code></pre>
+</div>
+
+<br class="clear" />
+
+
+
 
 
 
