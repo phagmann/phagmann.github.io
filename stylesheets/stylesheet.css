@@ -2,7 +2,7 @@
   box-sizing: border-box; }
 
 body {
-  background: url("/Users/Patrick/Desktop/vagrant/src/phagmann.github.io/mybackround.jpeg") no-repeat center center fixed; 
+  background: url("../mybackround.jpeg") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -17,7 +17,7 @@ body {
 }
 
   .about-container {
-  background: url("/Users/Patrick/Desktop/vagrant/src/phagmann.github.io/mybackround.jpeg") no-repeat center center fixed; 
+  background: url("../mybackround.jpeg") no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
