@@ -39,10 +39,6 @@ h3 {
   margin-top: 100px;
 }
 
-.yellow {
-  border-top: 5px double #F5A623;
-  width: 500px;
-}
 
 .box {
   float:left;
@@ -303,6 +299,42 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+
+
+
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+
+}
+
+/* Set the fixed height of the footer here */
+#ffooter {
+  height:200px;
+  color:white;
+  background-color: rgba(36,32,33,0.7);
+  font-family: "Helvetica Neue",Helvetica;
+  padding:10px 0px;
+  margin-top:30px;
+  font-weight:100;
+}
+
+#ffooter a {
+  color:white;
+  font-weight:100;
+}
+
+.social-button {
+  width: 32px;
+  margin:4px;
+}
+
+.social a:hover {
+  text-decoration:none;
+}
+
 
 
 
