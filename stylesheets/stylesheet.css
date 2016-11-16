@@ -2,12 +2,64 @@
   box-sizing: border-box; }
 
 body {
-  padding: 0;
-  margin: 0;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #606c71; }
+  background: url('/Users/Patrick/Desktop/vagrant/src/phagmann.github.io/mybackround.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Noto Sans', sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30em
+
+
+}
+
+  .about-container {
+  background: url('/Users/Patrick/Desktop/vagrant/src/phagmann.github.io/mybackround.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+}
+
+h3 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 20em;
+  font-weight:normal;
+  margin-top: 100px;
+}
+
+.yellow {
+  border-top: 5px double #F5A623;
+  width: 250px;
+}
+
+.box {
+  float:left;
+ 
+  width: 42.5%;
+  margin-left: 5%;
+  margin-top: 80px;
+}
+
+.clear {
+  clear:both;
+}
+
+h4 {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 24px;
+}
+
+p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+}
 
 a {
   color: #1e6bb8;
@@ -243,3 +295,13 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+
+
+.about-container {
+  background: url('mybackround.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+}
