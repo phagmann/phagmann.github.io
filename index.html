@@ -306,7 +306,7 @@ pp AplhaBetaPruning(4, 14)
 <hr class="yellow">
 
 <div class="box" >
-    <embed style =" position:relative;left:80px" src="pdfs/NewResume.pdf" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+    <embed style =" position:relative;left:80px" src="pdfs/CurrentResume.pdf" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
 
 
 
@@ -317,6 +317,49 @@ pp AplhaBetaPruning(4, 14)
 <br class="clear" />
 <br class="clear" />
 <br class="clear" />
+
+
+<div id="footer">
+    <div class="container">
+      <div class="col-xs-12 col-sm-3">
+        <b>Teachers</b>
+        <br />
+        <%= link_to 'Teach a Course', new_instructor_course_path %>
+        <br />
+        <%= link_to 'My Dashboard', dashboard_path %>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <b>About</b>
+        <br />
+        <%= link_to 'Team', '#' %>
+        <br />
+        <%= link_to 'Careers', '#' %>
+        <br />
+        <%= link_to 'Privacy Policy', privacy_path %>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <b>Contact</b>
+        <br />
+        phagmann1@gmail.com
+
+      </div>
+      <div class="col-xs-12 col-sm-3 social">
+        <b>Social</b>
+        <br />
+        <br />
+        <%= link_to 'http://github.com/phagmann' do %>
+          <%= image_tag 'github.png', class: 'social-button' %>
+        <% end %>
+        <%= link_to 'https://www.facebook.com/patrick.hagmann.5' do %>
+          <%= image_tag 'facebook.png', class: 'social-button' %>
+        <% end %>
+        <%= link_to 'https://twitter.com/Patrick_Hagmann' do %>
+          <%= image_tag 'twitter.png', class: 'social-button' %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
 
 
 
