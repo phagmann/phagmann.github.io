@@ -106,10 +106,10 @@ attr_accessor :value, :next_node, :previous, :alpha, :beta, :pruned
 
 end
 class Tree
-    attr_accessor :currentNode, :size
-    def initialize(currentNode=nil, size=0)
+    attr_accessor :currentNode, :depth
+    def initialize(currentNode=nil, depth=0)
       self.currentNode = currentNode
-      self.size = size
+      self.depth = depth
     end
 
     def PreviousNodeAt(index)
@@ -129,7 +129,9 @@ class Tree
     end
 
     def Next 
+        self.currentNode.previous = []
         self.currentNode = self.currentNode.next_node
+        self.depth -= 1
     end
 
     def Value
@@ -140,15 +142,14 @@ class Tree
         node = Node.new
         node.value = value
         if self.currentNode == nil
-            pp &quot;shots!&quot;
             self.currentNode = node
-            self.size += 1
+            self.depth += 1
             return
         end
 
         node.next_node = self.currentNode
         self.currentNode.previous.push(node)
-        self.size += 1
+        self.depth += 1
         self.currentNode = node
         self.currentNode.alpha = self.currentNode.next_node.alpha
         self.currentNode.beta = self.currentNode.next_node.beta
@@ -163,19 +164,11 @@ class Tree
         node.value = value
         node.next_node = self.currentNode
         self.currentNode.previous.push(node)
-        self.size += 1
         return
     end
 
     def getDepth
-        start = self.currentNode
-        depth = 1
-        # wtf is wrong with next_node and previous they are not set as nil??
-        while start.next_node != nil
-            start = start.next_node
-            depth += 1
-        end
-        return depth
+        return self.depth
     end
 
 
@@ -224,11 +217,6 @@ class Tree
 end
 
 
-# q = Tree.new
-# q.currentNode = Node.new
-# pp q.currentNode.next_node
-
-
 
 
 
@@ -248,7 +236,8 @@ def AplhaBetaPruning(childern, depth)
             next
 
         elsif q.getDepth &gt;= depth - 1
-            (0..childern-1).each do |z|
+            z = 0
+            while childern-1 &gt;= z
                 r = 1 + rand(100)
                 q.add(r)
                 if q.ifPrune
@@ -256,7 +245,7 @@ def AplhaBetaPruning(childern, depth)
                     break
                 end
                 q.getAlphaBeta(q.getDepth,z)
-
+                z += 1
             end
             q.moveAlphaBetaUp (q.getDepth)
             q.Next
@@ -274,7 +263,7 @@ def AplhaBetaPruning(childern, depth)
             if countdown &lt;= 0
                 puts &quot;win&quot;
                 puts q.Value
-                return q.size
+                return q.depth
             end
             q.newadd(nil)
         end
@@ -285,16 +274,9 @@ def AplhaBetaPruning(childern, depth)
 return 
 
 
-
-
-
 end
 
-
-pp AplhaBetaPruning(4, 14)
-
-
-
+pp AplhaBetaPruning(4, 12)
 
 </code></pre>
 </div>
